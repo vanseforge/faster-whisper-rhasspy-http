@@ -31,6 +31,7 @@ Arguments :
 - `--host` : Set the bind address of the HTTP server. Defaults to `0.0.0.0`
 - `--port` : Set the bind port of the HTTP server. Defaults to `4444`
 - `--filter-chars` : Provide a list of characters to be filtered out of the recognized text. Defaults to None
+- `--language` : Provide the spoken language. If not set, language is recognized. Defaults to None
 - `--whisper-model` : Define what model should be used for Whisper possible values are `tiny`, `base`, `small`, `medium`, `large`; More info [here](https://github.com/openai/whisper#available-models-and-languages). Defaults to `base`
 
 You can pass arguments to your docker run command in the same as you would usually.
