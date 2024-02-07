@@ -1,19 +1,17 @@
 from bottle import route, run, request
 import os, random, string, argparse
-import whisper
+from faster_whisper import WhisperModel
 
-parser = argparse.ArgumentParser(description="Whisper integration for Rhasspy")
+parser = argparse.ArgumentParser(description="Faster-Whisper integration for Rhasspy")
 parser.add_argument('--host', type=str, help="Bind address of the http server", default="0.0.0.0")
+parser.add_argument('--language', type=str, help="Spoken language", default=None)
 parser.add_argument('--port', type=int, help="Port of the http server", default=4444)
 parser.add_argument('--filter-chars', type=str, help="Remove specific characters from the recognized text", default=None)
 parser.add_argument('--whisper-model', type=str, help="Whisper model to use", default="base")
 
 args = parser.parse_args()
 
-print(args)
-
-model = whisper.load_model(args.whisper_model)
-
+model = WhisperModel(args.whisper_model, device="cpu", compute_type="int8", download_root="./models")
 
 def get_random_string(length):
     letters = string.ascii_lowercase
@@ -36,14 +34,24 @@ def api_text_to_speech():
     f.write(data)
     f.close()
 
-    result = model.transcribe(filename)
+    segments, info = model.transcribe(filename, language=args.language)
 
-    os.remove(filename)
+    segments = list(segments)
 
-    print(result)
-    cleaned_text = clean_text(result['text'])
-    print("Clean text:")
-    print(cleaned_text)
+    try:
+        result = segments[0]
+        
+        os.remove(filename)
+
+        f = open(filename+".txt", "w")
+        f.write(result.text)
+        f.close()
+
+        cleaned_text = clean_text(result.text)
+       
+    except IndexError as e:
+        cleaned_text = ""
+    
     res = {
         "text": cleaned_text,
         "likelihood": 1.0,

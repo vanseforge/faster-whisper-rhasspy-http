@@ -1,10 +1,10 @@
-# Whisper Rhasspy HTTP  
-  
-This project aims to provide a Whisper integration to Rhasspy. Currently, it is somewhat functional, can work on both CPU and GPU with the provided Dockerfile.
+# Faster Whisper Rhasspy HTTP  
+
+This project aims to provide a Faster Whisper integration to Rhasspy.
+The project is based on: https://github.com/seifane/whisper-rhasspy-http
 
 ## Setup
 ### Baremetal
-Whisper is required follow the installation instructions [here](https://github.com/openai/whisper#setup)
 
 ```
 pip install -r requirements.txt
