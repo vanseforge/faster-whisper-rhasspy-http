@@ -13,13 +13,7 @@ python main.py
 
 ### Docker
 Start the container
-```
-docker run -p 4444:4444 tiemajor/whisper-rhasspy-http:latest 
-```
-**OR** start the container with GPU support (requires nvidia-container-runtime, more info [here](https://docs.docker.com/config/containers/resource_constraints/#gpu))
-```
-docker run --gpus all -p 4444:4444 tiemajor/whisper-rhasspy-http:latest 
-```
+Use the docker-compose.yml
 
 ### Rhasspy setup
 
