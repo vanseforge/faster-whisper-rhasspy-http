@@ -13,6 +13,7 @@ python main.py
 
 ### Docker
 Start the container
+
 Use the docker-compose.yml
 
 ### Rhasspy setup
